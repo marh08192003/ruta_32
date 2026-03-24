@@ -1,0 +1,22 @@
+{
+  "appTitle": "Colombia Tetris",
+  "gameMode": "Game mode",
+  "departmentPlacement": "Place the department",
+  "municipalityPlacement": "Place the municipality",
+  "level": "Level",
+  "lives": "Lives",
+  "score": "Score",
+  "next": "Next",
+  "hintOn": "Hint on",
+  "hintOff": "Hint off",
+  "gameOver": "Game over",
+  "victory": "Victory!",
+  "loadError": "Error loading data",
+  "detailTitle": "Details",
+  "department": "Department",
+  "municipality": "Municipality",
+  "region": "Region",
+  "language": "Language",
+  "english": "English",
+  "spanish": "Spanish"
+}
