@@ -15,13 +15,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gameMode => 'Game mode';
 
   @override
-  String get departmentPlacement => 'Place the department';
+  String departmentPlacement(String name) {
+    return 'Place: $name';
+  }
 
   @override
-  String get municipalityPlacement => 'Place the municipality';
-
-  @override
-  String get level => 'Level';
+  String surface(String value) {
+    return 'Surface: $value km²';
+  }
 
   @override
   String get lives => 'Lives';
@@ -30,41 +31,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get score => 'Score';
 
   @override
-  String get next => 'Next';
-
-  @override
-  String get hintOn => 'Hint on';
-
-  @override
-  String get hintOff => 'Hint off';
-
-  @override
   String get gameOver => 'Game over';
 
   @override
   String get victory => 'Victory!';
-
-  @override
-  String get loadError => 'Error loading data';
-
-  @override
-  String get detailTitle => 'Details';
-
-  @override
-  String get department => 'Department';
-
-  @override
-  String get municipality => 'Municipality';
-
-  @override
-  String get region => 'Region';
-
-  @override
-  String get language => 'Language';
-
-  @override
-  String get english => 'English';
-
-  @override
-  String get spanish => 'Spanish';
 }

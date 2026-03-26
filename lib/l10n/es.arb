@@ -1,22 +1,20 @@
 {
   "appTitle": "Colombia Tetris",
   "gameMode": "Modo de juego",
-  "departmentPlacement": "Ubica el departamento",
-  "municipalityPlacement": "Ubica el municipio",
-  "level": "Nivel",
+  "departmentPlacement": "Ubica: {name}",
+  "@departmentPlacement": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "surface": "Superficie: {value} km²",
+  "@surface": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
   "lives": "Vidas",
   "score": "Puntaje",
-  "next": "Siguiente",
-  "hintOn": "Pista encendida",
-  "hintOff": "Pista apagada",
   "gameOver": "Juego terminado",
-  "victory": "¡Victoria!",
-  "loadError": "Error cargando datos",
-  "detailTitle": "Detalles",
-  "department": "Departamento",
-  "municipality": "Municipio",
-  "region": "Región",
-  "language": "Idioma",
-  "english": "Inglés",
-  "spanish": "Español"
+  "victory": "¡Victoria!"
 }

@@ -113,20 +113,14 @@ abstract class AppLocalizations {
   /// No description provided for @departmentPlacement.
   ///
   /// In es, this message translates to:
-  /// **'Ubica el departamento'**
-  String get departmentPlacement;
+  /// **'Ubica: {name}'**
+  String departmentPlacement(String name);
 
-  /// No description provided for @municipalityPlacement.
+  /// No description provided for @surface.
   ///
   /// In es, this message translates to:
-  /// **'Ubica el municipio'**
-  String get municipalityPlacement;
-
-  /// No description provided for @level.
-  ///
-  /// In es, this message translates to:
-  /// **'Nivel'**
-  String get level;
+  /// **'Superficie: {value} km²'**
+  String surface(String value);
 
   /// No description provided for @lives.
   ///
@@ -140,24 +134,6 @@ abstract class AppLocalizations {
   /// **'Puntaje'**
   String get score;
 
-  /// No description provided for @next.
-  ///
-  /// In es, this message translates to:
-  /// **'Siguiente'**
-  String get next;
-
-  /// No description provided for @hintOn.
-  ///
-  /// In es, this message translates to:
-  /// **'Pista encendida'**
-  String get hintOn;
-
-  /// No description provided for @hintOff.
-  ///
-  /// In es, this message translates to:
-  /// **'Pista apagada'**
-  String get hintOff;
-
   /// No description provided for @gameOver.
   ///
   /// In es, this message translates to:
@@ -169,54 +145,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'¡Victoria!'**
   String get victory;
-
-  /// No description provided for @loadError.
-  ///
-  /// In es, this message translates to:
-  /// **'Error cargando datos'**
-  String get loadError;
-
-  /// No description provided for @detailTitle.
-  ///
-  /// In es, this message translates to:
-  /// **'Detalles'**
-  String get detailTitle;
-
-  /// No description provided for @department.
-  ///
-  /// In es, this message translates to:
-  /// **'Departamento'**
-  String get department;
-
-  /// No description provided for @municipality.
-  ///
-  /// In es, this message translates to:
-  /// **'Municipio'**
-  String get municipality;
-
-  /// No description provided for @region.
-  ///
-  /// In es, this message translates to:
-  /// **'Región'**
-  String get region;
-
-  /// No description provided for @language.
-  ///
-  /// In es, this message translates to:
-  /// **'Idioma'**
-  String get language;
-
-  /// No description provided for @english.
-  ///
-  /// In es, this message translates to:
-  /// **'Inglés'**
-  String get english;
-
-  /// No description provided for @spanish.
-  ///
-  /// In es, this message translates to:
-  /// **'Español'**
-  String get spanish;
 }
 
 class _AppLocalizationsDelegate
