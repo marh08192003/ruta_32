@@ -1,5 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ruta_32/models/department_model.dart';
+import '../models/department_model.dart';
 
 class FallingPieceWidget extends StatefulWidget {
   final Department department;
@@ -17,84 +18,76 @@ class FallingPieceWidget extends StatefulWidget {
   State<FallingPieceWidget> createState() => _FallingPieceWidgetState();
 }
 
-class _FallingPieceWidgetState extends State<FallingPieceWidget>
-    with SingleTickerProviderStateMixin {
-  // Posición actual de la pieza
-  Offset _currentPosition = const Offset(0, 400);
-
-  // Controlador para el "rebote" cuando el usuario falla
-  late AnimationController _controller;
-  late Animation<Offset> _animation;
+class _FallingPieceWidgetState extends State<FallingPieceWidget> {
+  // Solo controlamos X (horizontal) y Y (caída)
+  double _offsetX = 0.0;
+  double _offsetY = -200.0; // Inicia arriba, fuera de pantalla
+  Timer? _timer;
+  bool _isPlaced = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-
-    // Animación inicial: La pieza aparece subiendo
-    _animateTo(const Offset(0, 200));
+    _startFalling();
   }
 
-  @override
-  void didUpdateWidget(FallingPieceWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // Si el departamento cambió (acierto), reseteamos posición
-    if (oldWidget.department.idCaida != widget.department.idCaida) {
-      _animateTo(const Offset(0, 200));
-    }
-  }
-
-  void _animateTo(Offset target) {
-    _animation = Tween<Offset>(
-      begin: _currentPosition,
-      end: target,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
-
-    _controller.reset();
-    _controller.forward();
-
-    _animation.addListener(() {
+  void _startFalling() {
+    // Velocidad de caída: aumenta Y cada 16ms (~60fps)
+    _timer = Timer.periodic(const Duration(milliseconds: 16), (timer) {
       setState(() {
-        _currentPosition = _animation.value;
+        _offsetY +=
+            2.5; // Ajusta este número para cambiar la dificultad (velocidad)
       });
+
+      // Si la pieza llega a la base (Y = 0 es su posición real en el Stack)
+      if (_offsetY >= 0) {
+        _checkResult();
+      }
     });
+  }
+
+  void _checkResult() {
+    _timer?.cancel();
+    if (_isPlaced) return;
+    _isPlaced = true;
+
+    // VALIDACIÓN: Si al llegar a Y=0, la X está cerca de 0 (centro)
+    // Margen de error de 50 píxeles
+    if (_offsetX.abs() < 50) {
+      widget.onPlaced();
+    } else {
+      widget.onFailed();
+    }
+
+    // Reset para la siguiente pieza
+    setState(() {
+      _offsetY = -200.0;
+      _offsetX = 0.0;
+      _isPlaced = false;
+    });
+    _startFalling();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _timer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      // Movimiento horizontal únicamente
       onPanUpdate: (details) {
         setState(() {
-          // Mientras el usuario arrastra, actualizamos la posición manualmente
-          _currentPosition += details.delta;
+          _offsetX += details.delta.dx;
         });
       },
-      onPanEnd: (details) {
-        // VALIDACIÓN: Margen de error de 40 píxeles (ajustable)
-        if (_currentPosition.dx.abs() < 40 && _currentPosition.dy.abs() < 40) {
-          widget.onPlaced();
-        } else {
-          widget.onFailed();
-          // EFECTO REBOTE: Si falla, la pieza vuelve al punto de espera
-          _animateTo(const Offset(0, 200));
-        }
-      },
       child: Transform.translate(
-        offset: _currentPosition,
+        offset: Offset(_offsetX, _offsetY),
         child: Image.asset(
           widget.department.assetPath,
-          // Color amarillento para resaltar la pieza que el usuario debe mover
-          color: Colors.yellow.withOpacity(0.7),
-          colorBlendMode: BlendMode.modulate,
+          // Sin fondo amarillo, solo la imagen pura
         ),
       ),
     );

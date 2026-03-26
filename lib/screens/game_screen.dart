@@ -48,6 +48,8 @@ class GameScreen extends ConsumerWidget {
                 child: AspectRatio(
                   aspectRatio: 1837 / 2477,
                   child: Stack(
+                    clipBehavior: Clip
+                        .none, // <--- ESTO PERMITE VER LA PIEZA MIENTRAS CAE DESDE ARRIBA
                     children: [
                       // Fondo
                       Opacity(
@@ -57,7 +59,7 @@ class GameScreen extends ConsumerWidget {
                         ),
                       ),
 
-                      // Departamentos ya colocados
+                      // Departamentos ya colocados (se dibujan en su posición original 0,0)
                       ...gameState.placedIds.map((id) {
                         final dept = allDepartments.firstWhere(
                           (d) => d.idCaida == id,
@@ -65,9 +67,12 @@ class GameScreen extends ConsumerWidget {
                         return Image.asset(dept.assetPath);
                       }),
 
-                      // Pieza activa con lógica de "Game Over" traducida
+                      // Pieza activa con la nueva lógica de FallingPieceWidget
                       if (!gameState.isGameOver)
                         FallingPieceWidget(
+                          // Al usar UniqueKey, obligamos a Flutter a reiniciar el estado del widget
+                          // cada vez que el departamento cambie, reseteando el Timer y la posición.
+                          key: UniqueKey(),
                           department: gameState.currentDept,
                           onPlaced: () => gameNotifier.onRightPlacement(),
                           onFailed: () => gameNotifier.onWrongPlacement(),
@@ -75,7 +80,7 @@ class GameScreen extends ConsumerWidget {
                       else
                         Center(
                           child: Text(
-                            l10n.gameOver, // <--- USANDO ARB
+                            l10n.gameOver,
                             style: const TextStyle(
                               color: Colors.red,
                               fontSize: 40,
