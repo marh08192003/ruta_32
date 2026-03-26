@@ -1,52 +1,70 @@
-import 'package:riverpod/legacy.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/department_model.dart';
+import '../data/departments_data.dart';
 
 class GameState {
   final int lives;
   final int score;
-  final List<Department> remainingDepartments;
-  final Department? currentDepartment;
+  final int currentIndex; // Índice de la pieza actual en la lista (0-31)
+  final List<int> placedIds; // IDs de los ya ubicados con éxito
+  final bool isGameOver;
 
   GameState({
     this.lives = 3,
     this.score = 0,
-    this.remainingDepartments = const [],
-    this.currentDepartment,
+    this.currentIndex = 0,
+    this.placedIds = const [],
+    this.isGameOver = false,
   });
+
+  Department get currentDept => allDepartments[currentIndex];
 
   GameState copyWith({
     int? lives,
     int? score,
-    List<Department>? remainingDepartments,
-    Department? currentDepartment,
+    int? currentIndex,
+    List<int>? placedIds,
+    bool? isGameOver,
   }) {
     return GameState(
       lives: lives ?? this.lives,
       score: score ?? this.score,
-      remainingDepartments: remainingDepartments ?? this.remainingDepartments,
-      currentDepartment: currentDepartment ?? this.currentDepartment,
+      currentIndex: currentIndex ?? this.currentIndex,
+      placedIds: placedIds ?? this.placedIds,
+      isGameOver: isGameOver ?? this.isGameOver,
     );
   }
 }
 
-// El Notificador que controlará la lógica
 class GameNotifier extends StateNotifier<GameState> {
   GameNotifier() : super(GameState());
 
-  void startGame(List<Department> departments) {
-    state = state.copyWith(
-      remainingDepartments: departments,
-      currentDepartment: departments.first,
-    );
+  void onRightPlacement() {
+    final nextIndex = state.currentIndex + 1;
+    if (nextIndex < allDepartments.length) {
+      state = state.copyWith(
+        score: state.score + 10,
+        placedIds: [...state.placedIds, state.currentDept.idCaida],
+        currentIndex: nextIndex,
+      );
+    } else {
+      // ¡Victoria! Has completado los 32
+    }
   }
 
-  void loseLife() {
-    if (state.lives > 0) {
+  void onWrongPlacement() {
+    if (state.lives > 1) {
       state = state.copyWith(lives: state.lives - 1);
+    } else {
+      state = state.copyWith(lives: 0, isGameOver: true);
     }
+  }
+
+  void resetGame() {
+    state = GameState();
   }
 }
 
-final gameProvider = StateNotifierProvider<GameNotifier, GameState>(
-  (ref) => GameNotifier(),
-);
+final gameProvider = StateNotifierProvider<GameNotifier, GameState>((ref) {
+  return GameNotifier();
+});
