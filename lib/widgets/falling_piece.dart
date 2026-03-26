@@ -6,7 +6,8 @@ class FallingPieceWidget extends StatefulWidget {
   final VoidCallback onPlaced;
   final VoidCallback onFailed;
 
-  const FallingPieceWidget({super.key, 
+  const FallingPieceWidget({
+    super.key,
     required this.department,
     required this.onPlaced,
     required this.onFailed,
@@ -16,33 +17,83 @@ class FallingPieceWidget extends StatefulWidget {
   State<FallingPieceWidget> createState() => _FallingPieceWidgetState();
 }
 
-class _FallingPieceWidgetState extends State<FallingPieceWidget> {
-  Offset position = const Offset(0, 300); // Inicia un poco abajo
+class _FallingPieceWidgetState extends State<FallingPieceWidget>
+    with SingleTickerProviderStateMixin {
+  // Posición actual de la pieza
+  Offset _currentPosition = const Offset(0, 400);
+
+  // Controlador para el "rebote" cuando el usuario falla
+  late AnimationController _controller;
+  late Animation<Offset> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    // Animación inicial: La pieza aparece subiendo
+    _animateTo(const Offset(0, 200));
+  }
+
+  @override
+  void didUpdateWidget(FallingPieceWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Si el departamento cambió (acierto), reseteamos posición
+    if (oldWidget.department.idCaida != widget.department.idCaida) {
+      _animateTo(const Offset(0, 200));
+    }
+  }
+
+  void _animateTo(Offset target) {
+    _animation = Tween<Offset>(
+      begin: _currentPosition,
+      end: target,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
+
+    _controller.reset();
+    _controller.forward();
+
+    _animation.addListener(() {
+      setState(() {
+        _currentPosition = _animation.value;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onPanUpdate: (details) {
         setState(() {
-          position += details.delta;
+          // Mientras el usuario arrastra, actualizamos la posición manualmente
+          _currentPosition += details.delta;
         });
       },
       onPanEnd: (details) {
-        // LÓGICA DE VALIDACIÓN
-        // Si la posición está muy cerca de (0,0), se considera acierto
-        if (position.dx.abs() < 30 && position.dy.abs() < 30) {
+        // VALIDACIÓN: Margen de error de 40 píxeles (ajustable)
+        if (_currentPosition.dx.abs() < 40 && _currentPosition.dy.abs() < 40) {
           widget.onPlaced();
-          setState(() => position = const Offset(0, 300)); // Reset para la siguiente
         } else {
           widget.onFailed();
-          // Opcional: animar de regreso al inicio
+          // EFECTO REBOTE: Si falla, la pieza vuelve al punto de espera
+          _animateTo(const Offset(0, 200));
         }
       },
       child: Transform.translate(
-        offset: position,
+        offset: _currentPosition,
         child: Image.asset(
           widget.department.assetPath,
-          color: Colors.yellow.withOpacity(0.8), // Color temporal para destacar la pieza activa
+          // Color amarillento para resaltar la pieza que el usuario debe mover
+          color: Colors.yellow.withOpacity(0.7),
           colorBlendMode: BlendMode.modulate,
         ),
       ),

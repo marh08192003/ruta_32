@@ -16,5 +16,6 @@
   "lives": "Vidas",
   "score": "Puntaje",
   "gameOver": "Juego terminado",
-  "victory": "¡Victoria!"
+  "victory": "¡Victoria!",
+  "next": "Siguiente"
 }

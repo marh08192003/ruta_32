@@ -41,14 +41,23 @@ class GameNotifier extends StateNotifier<GameState> {
 
   void onRightPlacement() {
     final nextIndex = state.currentIndex + 1;
+
+    // Guardamos el ID actual antes de pasar al siguiente
+    final updatedPlacedIds = [...state.placedIds, state.currentDept.idCaida];
+
     if (nextIndex < allDepartments.length) {
       state = state.copyWith(
         score: state.score + 10,
-        placedIds: [...state.placedIds, state.currentDept.idCaida],
+        placedIds: updatedPlacedIds,
         currentIndex: nextIndex,
       );
     } else {
-      // ¡Victoria! Has completado los 32
+      // ¡VICTORIA! Todos los departamentos (32) ubicados
+      state = state.copyWith(
+        score: state.score + 100, // Bono por ganar
+        placedIds: updatedPlacedIds,
+        isGameOver: true, // Usamos este flag para disparar el UI final
+      );
     }
   }
 

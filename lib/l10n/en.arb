@@ -16,5 +16,6 @@
   "lives": "Lives",
   "score": "Score",
   "gameOver": "Game over",
-  "victory": "Victory!"
+  "victory": "Victory!",
+  "next": "Next"
 }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ruta_32/l10n/app_localizations.dart';
 import 'package:ruta_32/models/department_model.dart';
 import 'package:ruta_32/widgets/falling_piece.dart';
+import 'package:ruta_32/widgets/game_over_dialog.dart';
 import '../state/game_state.dart';
 import '../data/departments_data.dart';
 
@@ -16,6 +17,22 @@ class GameScreen extends ConsumerWidget {
     final gameState = ref.watch(gameProvider);
     final gameNotifier = ref.read(gameProvider.notifier);
 
+    // Escuchar cambios en el estado para mostrar el diálogo final
+    ref.listen(gameProvider, (previous, next) {
+      // Solo disparamos el diálogo si isGameOver pasó de false a true
+      if (next.isGameOver && (previous == null || !previous.isGameOver)) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => GameOverDialog(
+            score: next.score,
+            isVictory: next.placedIds.length == allDepartments.length,
+            onReset: () => ref.read(gameProvider.notifier).resetGame(),
+          ),
+        );
+      }
+    });
+
     return Scaffold(
       backgroundColor: Colors.blueGrey[900],
       body: SafeArea(
@@ -23,7 +40,8 @@ class GameScreen extends ConsumerWidget {
           children: [
             // Pasamos l10n al header o lo usamos directamente
             _buildHeader(context, gameState),
-            if (!gameState.isGameOver) _buildTargetInfo(context, gameState.currentDept),
+            if (!gameState.isGameOver)
+              _buildTargetInfo(context, gameState.currentDept),
 
             Expanded(
               child: Center(
@@ -105,26 +123,30 @@ class GameScreen extends ConsumerWidget {
   }
 
   Widget _buildTargetInfo(BuildContext context, Department currentDept) {
-  final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
 
-  return Container(
-    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-    margin: const EdgeInsets.symmetric(vertical: 10),
-    decoration: BoxDecoration(
-      color: Colors.black54,
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(color: Colors.yellow.withOpacity(0.5)),
-    ),
-    child: Column(
-      children: [
-        Text(
-          l10n.departmentPlacement(currentDept.name), // Usa el placeholder
-          style: const TextStyle(color: Colors.yellow, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        // Aquí podrías añadir la superficie si la incluyes en tu modelo
-        // Text(l10n.surface("109.665"), style: const TextStyle(color: Colors.white70, fontSize: 12)),
-      ],
-    ),
-  );
-}
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.black54,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.yellow.withOpacity(0.5)),
+      ),
+      child: Column(
+        children: [
+          Text(
+            l10n.departmentPlacement(currentDept.name), // Usa el placeholder
+            style: const TextStyle(
+              color: Colors.yellow,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          // Aquí podrías añadir la superficie si la incluyes en tu modelo
+          // Text(l10n.surface("109.665"), style: const TextStyle(color: Colors.white70, fontSize: 12)),
+        ],
+      ),
+    );
+  }
 }

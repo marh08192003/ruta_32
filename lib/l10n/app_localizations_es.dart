@@ -35,4 +35,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get victory => '¡Victoria!';
+
+  @override
+  String get next => 'Siguiente';
 }

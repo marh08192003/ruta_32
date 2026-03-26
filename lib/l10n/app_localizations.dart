@@ -145,6 +145,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'¡Victoria!'**
   String get victory;
+
+  /// No description provided for @next.
+  ///
+  /// In es, this message translates to:
+  /// **'Siguiente'**
+  String get next;
 }
 
 class _AppLocalizationsDelegate
