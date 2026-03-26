@@ -12,6 +12,8 @@
 .swiftpm/
 migrate_working_dir/
 
+ruta-32.agent.md
+
 # IntelliJ related
 *.iml
 *.ipr
