@@ -1,5 +1,5 @@
 {
-  "appTitle": "Colombia Tetris",
+  "appTitle": "RUTA 32",
   "gameMode": "Modo de juego",
   "departmentPlacement": "Ubica: {name}",
   "@departmentPlacement": {
@@ -17,5 +17,12 @@
   "score": "Puntaje",
   "gameOver": "Juego terminado",
   "victory": "¡Victoria!",
-  "next": "Siguiente"
+  "play": "Jugar",
+  "info": "INFO",
+  "tutorialTitle": "Ruta 32 - Tutorial",
+  "howToPlayText": "1. Las piezas caen desde arriba.\n2. Arrástralas horizontalmente.\n3. Alínealas con su posición en el mapa antes de que toquen el suelo.\n4. Si fallas, pierdes una vida.",
+  "ok": "OK",
+  "language": "Idioma",
+  "spanish": "ES",
+  "english": "EN"
 }

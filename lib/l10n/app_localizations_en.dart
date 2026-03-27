@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Colombia Tetris';
+  String get appTitle => 'RUTA 32';
 
   @override
   String get gameMode => 'Game mode';
@@ -37,5 +37,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get victory => 'Victory!';
 
   @override
-  String get next => 'Next';
+  String get play => 'Play';
+
+  @override
+  String get info => 'INFO';
+
+  @override
+  String get tutorialTitle => 'Ruta 32 - Tutorial';
+
+  @override
+  String get howToPlayText =>
+      '1. Pieces fall from above.\n2. Drag them horizontally.\n3. Align them with their map position before they touch the ground.\n4. If you miss, you lose a life.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get spanish => 'ES';
+
+  @override
+  String get english => 'EN';
 }

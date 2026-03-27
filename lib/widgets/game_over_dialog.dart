@@ -51,7 +51,7 @@ class GameOverDialog extends StatelessWidget {
               onReset();
             },
             child: Text(
-              l10n.next, // Ahora que ejecutaste gen-l10n, esto ya no marcará error
+              l10n.play, // Ahora que ejecutaste gen-l10n, esto ya no marcará error
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,

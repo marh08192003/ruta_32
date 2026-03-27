@@ -2,23 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ruta_32/l10n/app_localizations.dart';
-import 'package:ruta_32/screens/game_screen.dart';
+import 'package:ruta_32/screens/menu_screen.dart';
+import 'package:ruta_32/state/language_provider.dart';
 
 void main() {
   // El ProviderScope es el que permite que Riverpod funcione
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localeProvider);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ruta 32',
 
       // CONFIGURACIÓN DE IDIOMAS (L10n)
+      locale: locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -38,8 +42,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      // Aquí llamamos a tu pantalla de juego
-      home: const GameScreen(),
+      // Iniciar la app en el menú principal
+      home: const MenuScreen(),
     );
   }
 }

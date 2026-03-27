@@ -1,5 +1,5 @@
 {
-  "appTitle": "Colombia Tetris",
+  "appTitle": "RUTA 32",
   "gameMode": "Game mode",
   "departmentPlacement": "Place: {name}",
   "@departmentPlacement": {
@@ -17,5 +17,12 @@
   "score": "Score",
   "gameOver": "Game over",
   "victory": "Victory!",
-  "next": "Next"
+  "play": "Play",
+  "info": "INFO",
+  "tutorialTitle": "Ruta 32 - Tutorial",
+  "howToPlayText": "1. Pieces fall from above.\n2. Drag them horizontally.\n3. Align them with their map position before they touch the ground.\n4. If you miss, you lose a life.",
+  "ok": "OK",
+  "language": "Language",
+  "spanish": "ES",
+  "english": "EN"
 }

@@ -9,7 +9,7 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appTitle => 'Colombia Tetris';
+  String get appTitle => 'RUTA 32';
 
   @override
   String get gameMode => 'Modo de juego';
@@ -37,5 +37,27 @@ class AppLocalizationsEs extends AppLocalizations {
   String get victory => '¡Victoria!';
 
   @override
-  String get next => 'Siguiente';
+  String get play => 'Jugar';
+
+  @override
+  String get info => 'INFO';
+
+  @override
+  String get tutorialTitle => 'Ruta 32 - Tutorial';
+
+  @override
+  String get howToPlayText =>
+      '1. Las piezas caen desde arriba.\n2. Arrástralas horizontalmente.\n3. Alínealas con su posición en el mapa antes de que toquen el suelo.\n4. Si fallas, pierdes una vida.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get language => 'Idioma';
+
+  @override
+  String get spanish => 'ES';
+
+  @override
+  String get english => 'EN';
 }

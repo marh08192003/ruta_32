@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In es, this message translates to:
-  /// **'Colombia Tetris'**
+  /// **'RUTA 32'**
   String get appTitle;
 
   /// No description provided for @gameMode.
@@ -146,11 +146,53 @@ abstract class AppLocalizations {
   /// **'¡Victoria!'**
   String get victory;
 
-  /// No description provided for @next.
+  /// No description provided for @play.
   ///
   /// In es, this message translates to:
-  /// **'Siguiente'**
-  String get next;
+  /// **'Jugar'**
+  String get play;
+
+  /// No description provided for @info.
+  ///
+  /// In es, this message translates to:
+  /// **'INFO'**
+  String get info;
+
+  /// No description provided for @tutorialTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Ruta 32 - Tutorial'**
+  String get tutorialTitle;
+
+  /// No description provided for @howToPlayText.
+  ///
+  /// In es, this message translates to:
+  /// **'1. Las piezas caen desde arriba.\n2. Arrástralas horizontalmente.\n3. Alínealas con su posición en el mapa antes de que toquen el suelo.\n4. Si fallas, pierdes una vida.'**
+  String get howToPlayText;
+
+  /// No description provided for @ok.
+  ///
+  /// In es, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @language.
+  ///
+  /// In es, this message translates to:
+  /// **'Idioma'**
+  String get language;
+
+  /// No description provided for @spanish.
+  ///
+  /// In es, this message translates to:
+  /// **'ES'**
+  String get spanish;
+
+  /// No description provided for @english.
+  ///
+  /// In es, this message translates to:
+  /// **'EN'**
+  String get english;
 }
 
 class _AppLocalizationsDelegate
