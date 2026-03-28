@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ruta_32/l10n/app_localizations.dart';
 import 'package:ruta_32/screens/game_screen.dart';
 import 'package:ruta_32/state/language_provider.dart';
+import 'package:ruta_32/widgets/info_dialog.dart';
 
 class MenuScreen extends ConsumerWidget {
   const MenuScreen({super.key});
@@ -144,95 +145,14 @@ class MenuScreen extends ConsumerWidget {
   }
 
   void _showHowToPlay(BuildContext context, AppLocalizations l10n) {
-    showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-        backgroundColor: Colors.transparent,
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF162636), Color(0xFF0D1724)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(28),
-            border: Border.all(color: Colors.white12, width: 1.5),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black45,
-                blurRadius: 24,
-                offset: Offset(0, 16),
-              ),
-            ],
-          ),
-          padding: const EdgeInsets.all(22),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.yellow[700],
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: const Icon(
-                      Icons.info_outline,
-                      color: Colors.black,
-                      size: 24,
-                    ),
-                  ),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Text(
-                      l10n.tutorialTitle,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 18),
-              Text(
-                l10n.howToPlayText,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.9),
-                  height: 1.55,
-                ),
-              ),
-              const SizedBox(height: 26),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.yellow[700],
-                    foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(
-                    l10n.ok,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      fullscreenDialog: true, // Esto hace que aparezca con una animación de "deslizar desde abajo"
+      builder: (context) => const InfoDialog(),
+    ),
+  );
+}
 }
 
 // Widgets de soporte estilizados
