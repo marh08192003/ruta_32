@@ -22,7 +22,8 @@ class FallingPieceWidget extends StatefulWidget {
 class _FallingPieceWidgetState extends State<FallingPieceWidget> {
   // Solo controlamos X (horizontal) y Y (caída)
   final Random _random = Random();
-  static const double _spawnXRange = 140.0; // +/- en X al aparecer (más corridos)
+  static const double _spawnXRange =
+      140.0; // +/- en X al aparecer (más corridos)
 
   double _offsetX = 0.0;
   double _offsetY = -260.0; // Inicia más arriba, afuera de pantalla
@@ -37,6 +38,9 @@ class _FallingPieceWidgetState extends State<FallingPieceWidget> {
   }
 
   double _randomX() {
+    if (widget.department.idCaida == 32) {
+      return 100.0;
+    }
     return (_random.nextDouble() * 2 - 1) * _spawnXRange;
   }
 
@@ -50,8 +54,7 @@ class _FallingPieceWidgetState extends State<FallingPieceWidget> {
     // Velocidad de caída: aumenta Y cada 16ms (~60fps)
     _timer = Timer.periodic(const Duration(milliseconds: 16), (timer) {
       setState(() {
-        _offsetY +=
-            1.3; // Más lento: velocidad reducida para caída más suave
+        _offsetY += 1.3; // Más lento: velocidad reducida para caída más suave
       });
 
       // Si la pieza llega a la base (Y = 0 es su posición real en el Stack)
