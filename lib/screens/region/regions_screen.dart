@@ -3,7 +3,9 @@ import 'package:ruta_32/l10n/app_localizations.dart';
 import 'package:ruta_32/screens/department/department_list_screen.dart';
 
 class RegionsScreen extends StatelessWidget {
-  final List<String> regions = [
+  const RegionsScreen({super.key});
+
+  final List<String> regions = const [
     "Amazonía",
     "Andina",
     "Caribe",
