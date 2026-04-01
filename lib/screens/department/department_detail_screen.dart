@@ -192,16 +192,18 @@ class _DepartmentDetailScreenState
 
         final heritages = snapshot.data!;
 
-        return Padding(
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal, // Habilitamos el scroll horizontal
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          // Usamos Column en lugar de ListView para que NO haya scroll interno
-          child: Column(
+          child: Row(
+            // Usamos Row para colocar uno al lado del otro
             children: heritages.map((item) {
               return Container(
-                width: double.infinity,
+                // Definimos un ancho fijo para que se vea como tarjeta de carrusel
+                width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.only(
-                  bottom: 12,
-                ), // Espacio entre tarjetas
+                  right: 12,
+                ), // Espacio a la derecha
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Colors.orange.withOpacity(0.05),
@@ -212,10 +214,10 @@ class _DepartmentDetailScreenState
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min, // Ajusta al contenido
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment
-                          .start, // Alinea arriba si el texto es largo
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Icon(
                           Icons.auto_awesome,
@@ -228,9 +230,11 @@ class _DepartmentDetailScreenState
                             item['name'] ?? '',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: 14,
                             ),
-                            // Eliminamos maxLines para que se vea completo
+                            maxLines:
+                                2, // Limitamos para mantener consistencia visual
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],
@@ -238,12 +242,13 @@ class _DepartmentDetailScreenState
                     const SizedBox(height: 8),
                     Text(
                       item['scope'] ?? 'Patrimonio Cultural',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 13,
                         fontStyle: FontStyle.italic,
-                        color: Colors.white,
+                        color: Colors
+                            .orange
+                            .shade800, // Ajusté el color para legibilidad
                       ),
-                      // Eliminamos maxLines para que se vea completo
                     ),
                   ],
                 ),
