@@ -1,18 +1,22 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ruta_32/state/department_provider.dart';
 import '../../models/department_model.dart';
 import '../../services/api_service.dart';
 
-class DepartmentDetailScreen extends StatefulWidget {
+class DepartmentDetailScreen extends ConsumerStatefulWidget {
   final Department department;
 
   const DepartmentDetailScreen({super.key, required this.department});
 
   @override
-  State<DepartmentDetailScreen> createState() => _DepartmentDetailScreenState();
+  ConsumerState<DepartmentDetailScreen> createState() =>
+      _DepartmentDetailScreenState();
 }
 
-class _DepartmentDetailScreenState extends State<DepartmentDetailScreen> {
+class _DepartmentDetailScreenState
+    extends ConsumerState<DepartmentDetailScreen> {
   final ApiService apiService = ApiService();
   late Department currentDept;
   bool isLoadingStats = true;
@@ -37,29 +41,21 @@ class _DepartmentDetailScreenState extends State<DepartmentDetailScreen> {
   // Método para cargar los datos faltantes (población y superficie)
   Future<void> _loadFullDetails() async {
     try {
-      final extraData = await apiService.getDepartmentDetails(currentDept.id);
-      final capitalData = extraData['cityCapital']; // Objeto anidado
+      // Leemos el provider y llamamos a getFullDetails (que ya maneja el caché internamente)
+      final fullDept = await ref
+          .read(departmentCacheProvider.notifier)
+          .getFullDetails(widget.department);
 
-      setState(() {
-        currentDept = Department(
-          id: currentDept.id,
-          idCaida: currentDept.idCaida,
-          name: extraData['name'] ?? currentDept.name,
-          assetPath: currentDept.assetPath,
-          region: currentDept.region,
-          description: extraData['description'],
-          population: extraData['population'],
-          surface: extraData['surface'],
-          // Mapeo de la capital
-          capitalName: capitalData != null ? capitalData['name'] : null,
-          capitalDescription: capitalData != null
-              ? capitalData['description']
-              : null,
-        );
-        isLoadingStats = false;
-      });
+      if (mounted) {
+        setState(() {
+          currentDept = fullDept;
+          isLoadingStats = false;
+        });
+      }
     } catch (e) {
-      setState(() => isLoadingStats = false);
+      if (mounted) {
+        setState(() => isLoadingStats = false);
+      }
     }
   }
 
