@@ -61,7 +61,7 @@ class MenuScreen extends ConsumerWidget {
                     l10n.gameMode,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.75),
+                      color: Colors.white.withValues(alpha: 0.75),
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -70,7 +70,7 @@ class MenuScreen extends ConsumerWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.08),
+                      color: Colors.white.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(28),
                       border: Border.all(color: Colors.white24),
                       boxShadow: const [
@@ -123,7 +123,7 @@ class MenuScreen extends ConsumerWidget {
                   Text(
                     l10n.language,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.85),
+                      color: Colors.white.withValues(alpha: 0.85),
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
@@ -236,7 +236,7 @@ class _LanguageChip extends StatelessWidget {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: Colors.yellow.withOpacity(0.18),
+                    color: Colors.yellow.withValues(alpha: 0.18),
                     blurRadius: 16,
                     offset: const Offset(0, 8),
                   ),

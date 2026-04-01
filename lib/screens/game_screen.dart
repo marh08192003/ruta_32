@@ -143,7 +143,7 @@ class GameScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Colors.black54,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.yellow.withOpacity(0.5)),
+        border: Border.all(color: Colors.yellow.withValues(alpha: 0.5)),
       ),
       child: Column(
         children: [

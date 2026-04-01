@@ -208,7 +208,7 @@ class _DepartmentDetailScreenState
                 ), // Espacio a la derecha
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.orange.withOpacity(0.05),
+                  color: Colors.orange.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(12),
                   border: const Border(
                     left: BorderSide(width: 4, color: Colors.orange),
@@ -335,7 +335,7 @@ class _DepartmentDetailScreenState
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.05),
+                color: Colors.blue.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(12),
                 border: const Border(
                   left: BorderSide(width: 4, color: Colors.blue),

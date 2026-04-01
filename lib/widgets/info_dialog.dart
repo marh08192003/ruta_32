@@ -41,7 +41,7 @@ class InfoDialog extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.yellowAccent.withOpacity(0.5),
+                      color: Colors.yellowAccent.withValues(alpha: 0.5),
                     ),
                     color: const Color(0xFF0B1320),
                   ),
