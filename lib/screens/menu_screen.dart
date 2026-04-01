@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ruta_32/l10n/app_localizations.dart';
 import 'package:ruta_32/screens/game_screen.dart';
+import 'package:ruta_32/screens/region/regions_screen.dart';
 import 'package:ruta_32/state/language_provider.dart';
 import 'package:ruta_32/widgets/info_dialog.dart';
 
@@ -100,9 +101,20 @@ class MenuScreen extends ConsumerWidget {
                         _MenuButton(
                           label: l10n.info,
                           icon: Icons.help_outline,
-                          backgroundColor: Colors.white12,
+                          backgroundColor: Colors.blueAccent,
                           foregroundColor: Colors.white,
                           onPressed: () => _showHowToPlay(context, l10n),
+                        ),
+                        const SizedBox(height: 14),
+                        _MenuButton(
+                          label: "EXPLORAR RUTAS", // O l10n.explore
+                          icon: Icons.explore_outlined,
+                          backgroundColor: Colors.redAccent,
+                          foregroundColor: Colors.white,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => RegionsScreen()),
+                          ),
                         ),
                       ],
                     ),
@@ -145,14 +157,15 @@ class MenuScreen extends ConsumerWidget {
   }
 
   void _showHowToPlay(BuildContext context, AppLocalizations l10n) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      fullscreenDialog: true, // Esto hace que aparezca con una animación de "deslizar desde abajo"
-      builder: (context) => const InfoDialog(),
-    ),
-  );
-}
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        fullscreenDialog:
+            true, // Esto hace que aparezca con una animación de "deslizar desde abajo"
+        builder: (context) => const InfoDialog(),
+      ),
+    );
+  }
 }
 
 // Widgets de soporte estilizados

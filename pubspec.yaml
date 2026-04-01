@@ -36,4 +36,6 @@ flutter:
   generate: true
   assets:
     - assets/images/departments/
+    - assets/images/selection/
+    - assets/images/detail/
     - assets/images/info/
