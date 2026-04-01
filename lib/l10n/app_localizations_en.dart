@@ -60,4 +60,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get english => 'EN';
+
+  @override
+  String get population => 'Population';
+
+  @override
+  String get region => 'Region';
+
+  @override
+  String get aboutDepartment => 'About the department';
+
+  @override
+  String get loadingDescription => 'Loading description...';
+
+  @override
+  String capital(String name) {
+    return 'Capital City: $name';
+  }
+
+  @override
+  String get heritageTitle => 'Inmaterial Heritage';
+
+  @override
+  String get gastronomyTitle => 'Typical Gastronomy';
+
+  @override
+  String get culturalHeritage => 'Cultural Heritage';
+
+  @override
+  String departmentsByRegion(String regionName) {
+    return 'Departments: $regionName';
+  }
+
+  @override
+  String get regionsOfColombia => 'Regions of Colombia';
+
+  @override
+  String get explore => 'EXPLORE ROUTES';
+
+  @override
+  String get mainMenu => 'MAIN MENU';
+
+  @override
+  String get aboutColombia =>
+      'Ruta 32 is a tribute to the 32 departments of Colombia. Learn their location and size while you play.';
 }

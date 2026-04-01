@@ -84,9 +84,9 @@ class GameOverDialog extends StatelessWidget {
                   Navigator.of(context).pop(); // Cierra el diálogo
                   onMenu(); // Ejecuta la salida
                 },
-                label: const Text(
-                  "MENÚ PRINCIPAL", // Puedes agregarlo a tu L10n
-                  style: TextStyle(color: Colors.white),
+                label: Text(
+                  l10n.mainMenu,
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ),

@@ -14,7 +14,7 @@
     }
   },
   "lives": "Vidas",
-  "score": "Puntaje",
+  "score": "Puntaje", 
   "gameOver": "Juego terminado",
   "victory": "¡Victoria!",
   "play": "Jugar",
@@ -24,5 +24,33 @@
   "ok": "OK",
   "language": "Idioma",
   "spanish": "ES",
-  "english": "EN"
+  "english": "EN",
+
+  "population": "Población",
+  "region": "Región",
+  "aboutDepartment": "Sobre el departamento",
+  "loadingDescription": "Cargando descripción...",
+  "capital": "Capital: {name}",
+  "@capital": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "heritageTitle": "Patrimonio Inmaterial",
+  "gastronomyTitle": "Gastronomía Típica",
+  "culturalHeritage": "Patrimonio Cultural",
+
+  "departmentsByRegion": "Departamentos: {regionName}",
+  "@departmentsByRegion": {
+    "placeholders": {
+      "regionName": { "type": "String" }
+    }
+  },
+
+  "regionsOfColombia": "Regiones de Colombia",
+  "explore": "EXPLORAR RUTAS",
+
+  "mainMenu": "MENÚ PRINCIPAL",
+
+  "aboutColombia": "Ruta 32 es un tributo a los 32 departamentos de Colombia. Aprende su ubicación y tamaño mientras juegas."
 }

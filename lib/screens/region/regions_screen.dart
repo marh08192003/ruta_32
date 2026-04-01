@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ruta_32/l10n/app_localizations.dart';
 import 'package:ruta_32/screens/department/department_list_screen.dart';
 
 class RegionsScreen extends StatelessWidget {
@@ -13,8 +14,9 @@ class RegionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text("Regiones de Colombia")),
+      appBar: AppBar(title: Text(l10n.regionsOfColombia)),
       body: ListView.builder(
         itemCount: regions.length,
         itemBuilder: (context, index) {

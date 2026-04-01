@@ -67,8 +67,8 @@ class InfoDialog extends StatelessWidget {
             // SECCIÓN: SOBRE COLOMBIA
             _buildSectionTitle(Icons.map, "Colombia"),
             const SizedBox(height: 12),
-            const Text(
-              "Ruta 32 es un tributo a los 32 departamentos de Colombia. Aprende su ubicación y tamaño mientras juegas.",
+            Text(
+              l10n.aboutColombia,
               style: TextStyle(
                 color: Colors.white70,
                 fontSize: 15,

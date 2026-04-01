@@ -60,4 +60,48 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get english => 'EN';
+
+  @override
+  String get population => 'Población';
+
+  @override
+  String get region => 'Región';
+
+  @override
+  String get aboutDepartment => 'Sobre el departamento';
+
+  @override
+  String get loadingDescription => 'Cargando descripción...';
+
+  @override
+  String capital(String name) {
+    return 'Capital: $name';
+  }
+
+  @override
+  String get heritageTitle => 'Patrimonio Inmaterial';
+
+  @override
+  String get gastronomyTitle => 'Gastronomía Típica';
+
+  @override
+  String get culturalHeritage => 'Patrimonio Cultural';
+
+  @override
+  String departmentsByRegion(String regionName) {
+    return 'Departamentos: $regionName';
+  }
+
+  @override
+  String get regionsOfColombia => 'Regiones de Colombia';
+
+  @override
+  String get explore => 'EXPLORAR RUTAS';
+
+  @override
+  String get mainMenu => 'MENÚ PRINCIPAL';
+
+  @override
+  String get aboutColombia =>
+      'Ruta 32 es un tributo a los 32 departamentos de Colombia. Aprende su ubicación y tamaño mientras juegas.';
 }

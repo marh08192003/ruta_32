@@ -107,7 +107,7 @@ class MenuScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: 14),
                         _MenuButton(
-                          label: "EXPLORAR RUTAS", // O l10n.explore
+                          label: l10n.explore,
                           icon: Icons.explore_outlined,
                           backgroundColor: Colors.redAccent,
                           foregroundColor: Colors.white,

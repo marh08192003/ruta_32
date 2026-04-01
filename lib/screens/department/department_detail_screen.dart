@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ruta_32/l10n/app_localizations.dart';
 import 'package:ruta_32/state/department_provider.dart';
 import '../../models/department_model.dart';
 import '../../services/api_service.dart';
@@ -61,6 +62,7 @@ class _DepartmentDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(title: Text(currentDept.name), elevation: 0),
       body: SingleChildScrollView(
@@ -69,14 +71,14 @@ class _DepartmentDetailScreenState
           children: [
             _buildHeader(),
 
-            _buildQuickStats(),
+            _buildQuickStats(l10n),
 
-            _buildDescriptionSection(),
+            _buildDescriptionSection(l10n),
 
-            _buildSectionTitle("Patrimonio Inmaterial"),
-            _buildHeritageInfo(),
+            _buildSectionTitle(l10n.heritageTitle),
+            _buildHeritageInfo(l10n),
 
-            _buildSectionTitle("Gastronomía Típica"),
+            _buildSectionTitle(l10n.gastronomyTitle),
             _buildTypicalDishes(),
 
             const SizedBox(height: 30),
@@ -182,7 +184,7 @@ class _DepartmentDetailScreenState
     );
   }
 
-  Widget _buildHeritageInfo() {
+  Widget _buildHeritageInfo([AppLocalizations? l10n]) {
     return FutureBuilder(
       future: apiService.getHeritage(currentDept.id),
       builder: (context, snapshot) {
@@ -260,7 +262,7 @@ class _DepartmentDetailScreenState
     );
   }
 
-  Widget _buildQuickStats() {
+  Widget _buildQuickStats(AppLocalizations l10n) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       child: Row(
@@ -268,21 +270,21 @@ class _DepartmentDetailScreenState
         children: [
           _statItem(
             icon: Icons.people_outline,
-            label: "Población",
+            label: l10n.population,
             value: currentDept.population != null
                 ? "${(currentDept.population! / 1000000).toStringAsFixed(1)}M"
                 : "-",
           ),
           _statItem(
             icon: Icons.square_foot_outlined,
-            label: "Superficie",
+            label: l10n.surface(""),
             value: currentDept.surface != null
                 ? "${currentDept.surface} km²"
                 : "-",
           ),
           _statItem(
             icon: Icons.map_outlined,
-            label: "Región",
+            label: l10n.region,
             value: "API #${currentDept.id}",
           ),
         ],
@@ -308,7 +310,7 @@ class _DepartmentDetailScreenState
     );
   }
 
-  Widget _buildDescriptionSection() {
+  Widget _buildDescriptionSection([AppLocalizations? l10n]) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -316,12 +318,12 @@ class _DepartmentDetailScreenState
         children: [
           // Descripción del Departamento
           Text(
-            "Sobre el departamento",
+            l10n!.aboutDepartment,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
-            currentDept.description ?? "Cargando descripción...",
+            currentDept.description ?? l10n.loadingDescription,
             style: const TextStyle(height: 1.5),
             textAlign: TextAlign.justify,
           ),
@@ -347,7 +349,7 @@ class _DepartmentDetailScreenState
                       Icon(Icons.location_city, color: Colors.blue),
                       const SizedBox(width: 8),
                       Text(
-                        "Capital: ${currentDept.capitalName}",
+                        l10n.capital(currentDept.capitalName!),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,

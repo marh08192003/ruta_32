@@ -24,5 +24,33 @@
   "ok": "OK",
   "language": "Language",
   "spanish": "ES",
-  "english": "EN"
+  "english": "EN",
+
+  "population": "Population",
+  "region": "Region",
+  "aboutDepartment": "About the department",
+  "loadingDescription": "Loading description...",
+  "capital": "Capital City: {name}",
+  "@capital": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "heritageTitle": "Inmaterial Heritage",
+  "gastronomyTitle": "Typical Gastronomy",
+  "culturalHeritage": "Cultural Heritage",
+
+  "departmentsByRegion": "Departments: {regionName}",
+  "@departmentsByRegion": {
+    "placeholders": {
+      "regionName": { "type": "String" }
+    }
+  },
+
+  "regionsOfColombia": "Regions of Colombia",
+  "explore": "EXPLORE ROUTES",
+
+  "mainMenu": "MAIN MENU",
+
+  "aboutColombia": "Ruta 32 is a tribute to the 32 departments of Colombia. Learn their location and size while you play."
 }

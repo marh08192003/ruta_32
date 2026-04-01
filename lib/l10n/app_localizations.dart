@@ -193,6 +193,84 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'EN'**
   String get english;
+
+  /// No description provided for @population.
+  ///
+  /// In es, this message translates to:
+  /// **'Población'**
+  String get population;
+
+  /// No description provided for @region.
+  ///
+  /// In es, this message translates to:
+  /// **'Región'**
+  String get region;
+
+  /// No description provided for @aboutDepartment.
+  ///
+  /// In es, this message translates to:
+  /// **'Sobre el departamento'**
+  String get aboutDepartment;
+
+  /// No description provided for @loadingDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargando descripción...'**
+  String get loadingDescription;
+
+  /// No description provided for @capital.
+  ///
+  /// In es, this message translates to:
+  /// **'Capital: {name}'**
+  String capital(String name);
+
+  /// No description provided for @heritageTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Patrimonio Inmaterial'**
+  String get heritageTitle;
+
+  /// No description provided for @gastronomyTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Gastronomía Típica'**
+  String get gastronomyTitle;
+
+  /// No description provided for @culturalHeritage.
+  ///
+  /// In es, this message translates to:
+  /// **'Patrimonio Cultural'**
+  String get culturalHeritage;
+
+  /// No description provided for @departmentsByRegion.
+  ///
+  /// In es, this message translates to:
+  /// **'Departamentos: {regionName}'**
+  String departmentsByRegion(String regionName);
+
+  /// No description provided for @regionsOfColombia.
+  ///
+  /// In es, this message translates to:
+  /// **'Regiones de Colombia'**
+  String get regionsOfColombia;
+
+  /// No description provided for @explore.
+  ///
+  /// In es, this message translates to:
+  /// **'EXPLORAR RUTAS'**
+  String get explore;
+
+  /// No description provided for @mainMenu.
+  ///
+  /// In es, this message translates to:
+  /// **'MENÚ PRINCIPAL'**
+  String get mainMenu;
+
+  /// No description provided for @aboutColombia.
+  ///
+  /// In es, this message translates to:
+  /// **'Ruta 32 es un tributo a los 32 departamentos de Colombia. Aprende su ubicación y tamaño mientras juegas.'**
+  String get aboutColombia;
 }
 
 class _AppLocalizationsDelegate
