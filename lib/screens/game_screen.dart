@@ -19,7 +19,6 @@ class GameScreen extends ConsumerWidget {
 
     // Escuchar cambios en el estado para mostrar el diálogo final
     ref.listen(gameProvider, (previous, next) {
-      // Solo disparamos el diálogo si isGameOver pasó de false a true
       if (next.isGameOver && (previous == null || !previous.isGameOver)) {
         showDialog(
           context: context,
@@ -28,6 +27,14 @@ class GameScreen extends ConsumerWidget {
             score: next.score,
             isVictory: next.placedIds.length == allDepartments.length,
             onReset: () => ref.read(gameProvider.notifier).resetGame(),
+            onMenu: () {
+              ref
+                  .read(gameProvider.notifier)
+                  .resetGame(); // Limpia el juego al salir
+              Navigator.of(
+                context,
+              ).pop(); // Sale de la pantalla GameScreen al MenuScreen
+            },
           ),
         );
       }

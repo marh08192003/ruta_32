@@ -5,12 +5,14 @@ class GameOverDialog extends StatelessWidget {
   final int score;
   final bool isVictory;
   final VoidCallback onReset;
+  final VoidCallback onMenu;
 
   const GameOverDialog({
     super.key,
     required this.score,
     required this.isVictory,
     required this.onReset,
+    required this.onMenu,
   });
 
   @override
@@ -32,7 +34,11 @@ class GameOverDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.emoji_events, color: Colors.amber, size: 80),
+          Icon(
+            isVictory ? Icons.emoji_events : Icons.sentiment_very_dissatisfied,
+            color: isVictory ? Colors.amber : Colors.orangeAccent,
+            size: 80,
+          ),
           const SizedBox(height: 20),
           Text(
             "${l10n.score}: $score",
@@ -40,24 +46,51 @@ class GameOverDialog extends StatelessWidget {
           ),
         ],
       ),
+      actionsAlignment: MainAxisAlignment.center, // Centra los botones
       actions: [
-        Center(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.yellow[800],
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-              onReset();
-            },
-            child: Text(
-              l10n.play, // Ahora que ejecutaste gen-l10n, esto ya no marcará error
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+        Column(
+          children: [
+            // Botón Reiniciar
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.replay, color: Colors.black),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.yellow[800],
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(); // Cierra el diálogo
+                  onReset(); // Reinicia el estado del juego
+                },
+                label: Text(
+                  l10n.play.toUpperCase(), // O "REINTENTAR" si tienes esa key
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-          ),
+            const SizedBox(height: 8),
+            // Botón Volver al Menú
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                icon: const Icon(Icons.home, color: Colors.white),
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Colors.white54),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(); // Cierra el diálogo
+                  onMenu(); // Ejecuta la salida
+                },
+                label: const Text(
+                  "MENÚ PRINCIPAL", // Puedes agregarlo a tu L10n
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );
