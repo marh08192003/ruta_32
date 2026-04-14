@@ -3,6 +3,9 @@
         android:label="ruta_32"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7293210382437797~6790110568"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -5,6 +5,7 @@ import 'package:ruta_32/screens/game_screen.dart';
 import 'package:ruta_32/screens/region/regions_screen.dart';
 import 'package:ruta_32/state/language_provider.dart';
 import 'package:ruta_32/widgets/info_dialog.dart';
+import 'package:ruta_32/widgets/adaptive_banner.dart';
 
 class MenuScreen extends ConsumerWidget {
   const MenuScreen({super.key});
@@ -15,15 +16,20 @@ class MenuScreen extends ConsumerWidget {
     final currentLocale = ref.watch(localeProvider);
 
     return Scaffold(
+      bottomNavigationBar: const AdaptiveBanner(),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF0B1320), Color(0xFF101E33)],
+            colors: [
+              Color.fromARGB(255, 11, 19, 32),
+              Color.fromARGB(10, 2, 100, 247),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
         ),
         child: SafeArea(
+          bottom: false,
           child: Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(
