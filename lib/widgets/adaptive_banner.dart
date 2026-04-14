@@ -16,7 +16,6 @@ class _AdaptiveBannerState extends State<AdaptiveBanner> {
   @override
   void initState() {
     super.initState();
-    // Cargamos después del primer frame para tener el tamaño de pantalla listo
     WidgetsBinding.instance.addPostFrameCallback((_) => _loadAd());
   }
 

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../models/department_model.dart';
 
+// --- ESTA ES LA PARTE QUE FALTABA ---
 class FallingPieceWidget extends StatefulWidget {
   final Department department;
   final VoidCallback onPlaced;
@@ -20,68 +21,47 @@ class FallingPieceWidget extends StatefulWidget {
 }
 
 class _FallingPieceWidgetState extends State<FallingPieceWidget> {
-  // Solo controlamos X (horizontal) y Y (caída)
   final Random _random = Random();
-  static const double _spawnXRange =
-      140.0; // +/- en X al aparecer (más corridos)
 
-  double _offsetX = 0.0;
-  double _offsetY = -260.0; // Inicia más arriba, afuera de pantalla
+  late double _offsetX;
+  double _offsetY = -250.0;
   Timer? _timer;
-  bool _isPlaced = false;
+  bool _isFinalized = false;
 
   @override
   void initState() {
     super.initState();
-    _resetPosition();
+    // Inicializamos la X aleatoria
+    _offsetX = (widget.department.idCaida == 32)
+        ? 100.0
+        : (_random.nextDouble() * 2 - 1) * 140.0;
     _startFalling();
   }
 
-  double _randomX() {
-    if (widget.department.idCaida == 32) {
-      return 100.0;
-    }
-    return (_random.nextDouble() * 2 - 1) * _spawnXRange;
-  }
-
-  void _resetPosition() {
-    _offsetX = _randomX();
-    _offsetY = -200.0;
-    _isPlaced = false;
-  }
-
   void _startFalling() {
-    // Velocidad de caída: aumenta Y cada 16ms (~60fps)
     _timer = Timer.periodic(const Duration(milliseconds: 16), (timer) {
+      if (!mounted) return;
+
       setState(() {
-        _offsetY += 1.3; // Más lento: velocidad reducida para caída más suave
+        _offsetY += 1.5;
       });
 
-      // Si la pieza llega a la base (Y = 0 es su posición real en el Stack)
       if (_offsetY >= 0) {
+        _timer?.cancel();
         _checkResult();
       }
     });
   }
 
   void _checkResult() {
-    _timer?.cancel();
-    if (_isPlaced) return;
-    _isPlaced = true;
+    if (_isFinalized) return;
+    _isFinalized = true;
 
-    // VALIDACIÓN: Si al llegar a Y=0, la X está cerca de 0 (centro)
-    // Margen de error de 50 píxeles
     if (_offsetX.abs() < 50) {
       widget.onPlaced();
     } else {
       widget.onFailed();
     }
-
-    // Reset para la siguiente pieza
-    setState(() {
-      _resetPosition();
-    });
-    _startFalling();
   }
 
   @override
@@ -92,18 +72,23 @@ class _FallingPieceWidgetState extends State<FallingPieceWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      // Movimiento horizontal únicamente
-      onPanUpdate: (details) {
-        setState(() {
-          _offsetX += details.delta.dx;
-        });
-      },
-      child: Transform.translate(
-        offset: Offset(_offsetX, _offsetY),
-        child: Image.asset(
-          widget.department.assetPath,
-          // Sin fondo amarillo, solo la imagen pura
+    return Positioned.fill(
+      child: GestureDetector(
+        onPanUpdate: (details) {
+          if (_isFinalized) return;
+          setState(() {
+            _offsetX += details.delta.dx;
+          });
+        },
+        child: Container(
+          color: Colors.transparent,
+          child: Transform.translate(
+            offset: Offset(_offsetX, _offsetY),
+            child: Image.asset(
+              widget.department.assetPath,
+              fit: BoxFit.contain,
+            ),
+          ),
         ),
       ),
     );

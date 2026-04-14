@@ -6,6 +6,7 @@ class GameOverDialog extends StatelessWidget {
   final bool isVictory;
   final VoidCallback onReset;
   final VoidCallback onMenu;
+  final VoidCallback onExtraLife;
 
   const GameOverDialog({
     super.key,
@@ -13,6 +14,7 @@ class GameOverDialog extends StatelessWidget {
     required this.isVictory,
     required this.onReset,
     required this.onMenu,
+    required this.onExtraLife,
   });
 
   @override
@@ -46,11 +48,26 @@ class GameOverDialog extends StatelessWidget {
           ),
         ],
       ),
-      actionsAlignment: MainAxisAlignment.center, // Centra los botones
+      actionsAlignment: MainAxisAlignment.center,
       actions: [
         Column(
           children: [
-            // Botón Reiniciar
+            if (!isVictory)
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.movie, color: Colors.white),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple,
+                  ),
+                  onPressed: onExtraLife, // Quitamos el pop de aquí
+                  label: const Text(
+                    "VIDA EXTRA (AD)",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            const SizedBox(height: 8),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
@@ -59,11 +76,11 @@ class GameOverDialog extends StatelessWidget {
                   backgroundColor: Colors.yellow[800],
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Cierra el diálogo
-                  onReset(); // Reinicia el estado del juego
+                  Navigator.of(context).pop();
+                  onReset();
                 },
                 label: Text(
-                  l10n.play.toUpperCase(), // O "REINTENTAR" si tienes esa key
+                  l10n.play.toUpperCase(),
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -72,7 +89,6 @@ class GameOverDialog extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            // Botón Volver al Menú
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
@@ -81,8 +97,8 @@ class GameOverDialog extends StatelessWidget {
                   side: const BorderSide(color: Colors.white54),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Cierra el diálogo
-                  onMenu(); // Ejecuta la salida
+                  Navigator.of(context).pop();
+                  onMenu();
                 },
                 label: Text(
                   l10n.mainMenu,

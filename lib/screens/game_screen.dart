@@ -6,34 +6,69 @@ import 'package:ruta_32/widgets/falling_piece.dart';
 import 'package:ruta_32/widgets/game_over_dialog.dart';
 import '../state/game_state.dart';
 import '../data/departments_data.dart';
+import '../widgets/rewarded_ad_manager.dart';
 
-class GameScreen extends ConsumerWidget {
+class GameScreen extends ConsumerStatefulWidget {
   const GameScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // 1. Inicializamos la referencia a las traducciones
+  ConsumerState<GameScreen> createState() => _GameScreenState();
+}
+
+class _GameScreenState extends ConsumerState<GameScreen> {
+  // Mantenemos la instancia aquí para que no se resetee
+  late RewardedAdManager rewardedManager;
+
+  @override
+  void initState() {
+    super.initState();
+    rewardedManager = RewardedAdManager();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final gameState = ref.watch(gameProvider);
     final gameNotifier = ref.read(gameProvider.notifier);
 
-    // Escuchar cambios en el estado para mostrar el diálogo final
+    // ESCUCHA PARA PRECARGA: Cuando queda 1 vida, cargamos el anuncio
+    ref.listen(gameProvider.select((s) => s.lives), (prev, next) {
+      if (next == 1) {
+        debugPrint("Precargando anuncio: Solo queda 1 vida");
+        rewardedManager.loadAd();
+      }
+    });
+
+    // Escuchar para el GameOver
     ref.listen(gameProvider, (previous, next) {
       if (next.isGameOver && (previous == null || !previous.isGameOver)) {
         showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (context) => GameOverDialog(
+          builder: (dialogContext) => GameOverDialog(
             score: next.score,
             isVictory: next.placedIds.length == allDepartments.length,
             onReset: () => ref.read(gameProvider.notifier).resetGame(),
             onMenu: () {
-              ref
-                  .read(gameProvider.notifier)
-                  .resetGame(); // Limpia el juego al salir
-              Navigator.of(
-                context,
-              ).pop(); // Sale de la pantalla GameScreen al MenuScreen
+              ref.read(gameProvider.notifier).resetGame();
+              Navigator.of(dialogContext).pop();
+            },
+            onExtraLife: () {
+              if (rewardedManager.isAdLoaded) {
+                rewardedManager.showAd(
+                  onRewardEarned: () {
+                    Navigator.of(dialogContext).pop();
+                    ref.read(gameProvider.notifier).addExtraLife();
+                  },
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("El anuncio no está listo aún..."),
+                  ),
+                );
+                rewardedManager.loadAd();
+              }
             },
           ),
         );
@@ -45,7 +80,6 @@ class GameScreen extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Pasamos l10n al header o lo usamos directamente
             _buildHeader(context, gameState),
             if (!gameState.isGameOver)
               _buildTargetInfo(context, gameState.currentDept),
@@ -55,8 +89,7 @@ class GameScreen extends ConsumerWidget {
                 child: AspectRatio(
                   aspectRatio: 1837 / 2477,
                   child: Stack(
-                    clipBehavior: Clip
-                        .none, // <--- ESTO PERMITE VER LA PIEZA MIENTRAS CAE DESDE ARRIBA
+                    clipBehavior: Clip.none,
                     children: [
                       // Fondo
                       Opacity(

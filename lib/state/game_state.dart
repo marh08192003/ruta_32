@@ -42,7 +42,6 @@ class GameNotifier extends StateNotifier<GameState> {
   void onRightPlacement() {
     final nextIndex = state.currentIndex + 1;
 
-    // Guardamos el ID actual antes de pasar al siguiente
     final updatedPlacedIds = [...state.placedIds, state.currentDept.idCaida];
 
     if (nextIndex < allDepartments.length) {
@@ -56,7 +55,7 @@ class GameNotifier extends StateNotifier<GameState> {
       state = state.copyWith(
         score: state.score + 100, // Bono por ganar
         placedIds: updatedPlacedIds,
-        isGameOver: true, // Usamos este flag para disparar el UI final
+        isGameOver: true,
       );
     }
   }
@@ -71,6 +70,10 @@ class GameNotifier extends StateNotifier<GameState> {
 
   void resetGame() {
     state = GameState();
+  }
+
+  void addExtraLife() {
+    state = state.copyWith(lives: 3, isGameOver: false);
   }
 }
 
