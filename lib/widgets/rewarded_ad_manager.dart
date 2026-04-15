@@ -13,7 +13,7 @@ class RewardedAdManager {
     if (_isLoaded) return; // Evitar cargas dobles si ya está listo
 
     RewardedAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/5224354917',
+      adUnitId: 'ca-app-pub-7293210382437797/5836121545',
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
@@ -34,16 +34,21 @@ class RewardedAdManager {
     );
   }
 
-  void showAd({required Function onRewardEarned}) {
+  void showAd({
+    required Function onRewardEarned,
+    required VoidCallback onAdDismissed,
+  }) {
     if (_isLoaded && _rewardedAd != null) {
       _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
         onAdDismissedFullScreenContent: (ad) {
           ad.dispose();
           _isLoaded = false;
+          onAdDismissed();
         },
         onAdFailedToShowFullScreenContent: (ad, error) {
           ad.dispose();
           _isLoaded = false;
+          onAdDismissed();
           loadAd();
         },
       );

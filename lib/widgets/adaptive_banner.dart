@@ -44,7 +44,7 @@ class _AdaptiveBannerState extends State<AdaptiveBanner> {
 
     // 3. Crear y cargar
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/9214589741',
+      adUnitId: 'ca-app-pub-7293210382437797/7455278793',
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(

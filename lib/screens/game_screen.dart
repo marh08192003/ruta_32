@@ -16,7 +16,6 @@ class GameScreen extends ConsumerStatefulWidget {
 }
 
 class _GameScreenState extends ConsumerState<GameScreen> {
-  // Mantenemos la instancia aquí para que no se resetee
   late RewardedAdManager rewardedManager;
 
   @override
@@ -31,7 +30,6 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     final gameState = ref.watch(gameProvider);
     final gameNotifier = ref.read(gameProvider.notifier);
 
-    // ESCUCHA PARA PRECARGA: Cuando queda 1 vida, cargamos el anuncio
     ref.listen(gameProvider.select((s) => s.lives), (prev, next) {
       if (next == 1) {
         debugPrint("Precargando anuncio: Solo queda 1 vida");
@@ -39,7 +37,6 @@ class _GameScreenState extends ConsumerState<GameScreen> {
       }
     });
 
-    // Escuchar para el GameOver
     ref.listen(gameProvider, (previous, next) {
       if (next.isGameOver && (previous == null || !previous.isGameOver)) {
         showDialog(
@@ -55,10 +52,16 @@ class _GameScreenState extends ConsumerState<GameScreen> {
             },
             onExtraLife: () {
               if (rewardedManager.isAdLoaded) {
+                ref.read(gameProvider.notifier).setPaused(true);
+
                 rewardedManager.showAd(
                   onRewardEarned: () {
-                    Navigator.of(dialogContext).pop();
                     ref.read(gameProvider.notifier).addExtraLife();
+                    Navigator.of(dialogContext).pop();
+                  },
+
+                  onAdDismissed: () {
+                    ref.read(gameProvider.notifier).setPaused(false);
                   },
                 );
               } else {
@@ -110,10 +113,9 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                       // Pieza activa con la nueva lógica de FallingPieceWidget
                       if (!gameState.isGameOver)
                         FallingPieceWidget(
-                          // Al usar UniqueKey, obligamos a Flutter a reiniciar el estado del widget
-                          // cada vez que el departamento cambie, reseteando el Timer y la posición.
                           key: UniqueKey(),
                           department: gameState.currentDept,
+                          isPaused: gameState.isPaused,
                           onPlaced: () => gameNotifier.onRightPlacement(),
                           onFailed: () => gameNotifier.onWrongPlacement(),
                         )
@@ -148,12 +150,11 @@ class _GameScreenState extends ConsumerState<GameScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Usamos el texto de "Vidas" del ARB
           Text(
             "${l10n.lives}: ${'❤️' * state.lives}",
             style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
-          // Usamos el texto de "Puntaje" del ARB
+
           Text(
             "${l10n.score}: ${state.score}",
             style: const TextStyle(
@@ -188,8 +189,6 @@ class _GameScreenState extends ConsumerState<GameScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          // Aquí podrías añadir la superficie si la incluyes en tu modelo
-          // Text(l10n.surface("109.665"), style: const TextStyle(color: Colors.white70, fontSize: 12)),
         ],
       ),
     );

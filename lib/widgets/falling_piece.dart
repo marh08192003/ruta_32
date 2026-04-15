@@ -3,17 +3,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../models/department_model.dart';
 
-// --- ESTA ES LA PARTE QUE FALTABA ---
 class FallingPieceWidget extends StatefulWidget {
   final Department department;
   final VoidCallback onPlaced;
   final VoidCallback onFailed;
+  final bool isPaused;
 
   const FallingPieceWidget({
     super.key,
     required this.department,
     required this.onPlaced,
     required this.onFailed,
+    required this.isPaused,
   });
 
   @override
@@ -41,6 +42,8 @@ class _FallingPieceWidgetState extends State<FallingPieceWidget> {
   void _startFalling() {
     _timer = Timer.periodic(const Duration(milliseconds: 16), (timer) {
       if (!mounted) return;
+
+      if (widget.isPaused) return;
 
       setState(() {
         _offsetY += 1.5;

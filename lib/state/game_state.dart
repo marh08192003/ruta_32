@@ -8,6 +8,7 @@ class GameState {
   final int currentIndex; // Índice de la pieza actual en la lista (0-31)
   final List<int> placedIds; // IDs de los ya ubicados con éxito
   final bool isGameOver;
+  final bool isPaused;
 
   GameState({
     this.lives = 3,
@@ -15,6 +16,7 @@ class GameState {
     this.currentIndex = 0,
     this.placedIds = const [],
     this.isGameOver = false,
+    this.isPaused = false,
   });
 
   Department get currentDept => allDepartments[currentIndex];
@@ -25,6 +27,7 @@ class GameState {
     int? currentIndex,
     List<int>? placedIds,
     bool? isGameOver,
+    bool? isPaused,
   }) {
     return GameState(
       lives: lives ?? this.lives,
@@ -32,6 +35,7 @@ class GameState {
       currentIndex: currentIndex ?? this.currentIndex,
       placedIds: placedIds ?? this.placedIds,
       isGameOver: isGameOver ?? this.isGameOver,
+      isPaused: isPaused ?? this.isPaused,
     );
   }
 }
@@ -72,8 +76,12 @@ class GameNotifier extends StateNotifier<GameState> {
     state = GameState();
   }
 
+  void setPaused(bool paused) {
+    state = state.copyWith(isPaused: paused);
+  }
+
   void addExtraLife() {
-    state = state.copyWith(lives: 3, isGameOver: false);
+    state = state.copyWith(lives: 3, isGameOver: false, isPaused: true);
   }
 }
 

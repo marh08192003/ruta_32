@@ -60,7 +60,7 @@ class GameOverDialog extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,
                   ),
-                  onPressed: onExtraLife, // Quitamos el pop de aquí
+                  onPressed: onExtraLife,
                   label: const Text(
                     "VIDA EXTRA (AD)",
                     style: TextStyle(color: Colors.white),
