@@ -23,18 +23,12 @@ class _AdaptiveBannerState extends State<AdaptiveBanner> {
     if (_isSubmitting || !mounted) return;
     _isSubmitting = true;
 
-    // 1. Limpieza rigurosa antes de crear uno nuevo
-    if (_bannerAd != null) {
-      await _bannerAd!.dispose();
-      _bannerAd = null;
-      if (mounted) {
-        setState(() => _isLoaded = false);
-      }
-    }
+    // Usa MediaQuery.of(context) con cuidado para no disparar rebuilds innecesarios
+    final queryData = MediaQuery.of(context);
+    final width = queryData.size.width.truncate();
 
-    // 2. Obtener tamaño adaptativo
     final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-      MediaQuery.sizeOf(context).width.truncate(),
+      width,
     );
 
     if (size == null) {

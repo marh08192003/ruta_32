@@ -29,7 +29,7 @@ class MenuScreen extends ConsumerWidget {
           ),
         ),
         child: SafeArea(
-          bottom: false,
+          bottom: true,
           child: Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(

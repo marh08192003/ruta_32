@@ -65,24 +65,26 @@ class _DepartmentDetailScreenState
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(title: Text(currentDept.name), elevation: 0),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeader(),
 
-            _buildQuickStats(l10n),
+              _buildQuickStats(l10n),
 
-            _buildDescriptionSection(l10n),
+              _buildDescriptionSection(l10n),
 
-            _buildSectionTitle(l10n.heritageTitle),
-            _buildHeritageInfo(l10n),
+              _buildSectionTitle(l10n.heritageTitle),
+              _buildHeritageInfo(l10n),
 
-            _buildSectionTitle(l10n.gastronomyTitle),
-            _buildTypicalDishes(),
+              _buildSectionTitle(l10n.gastronomyTitle),
+              _buildTypicalDishes(),
 
-            const SizedBox(height: 30),
-          ],
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );

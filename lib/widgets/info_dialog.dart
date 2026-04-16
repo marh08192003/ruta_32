@@ -27,77 +27,79 @@ class InfoDialog extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // IMAGEN DE REFERENCIA (Aquí puedes poner una captura de tu juego)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: AspectRatio(
-                aspectRatio: 1837 / 2477,
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.yellowAccent.withValues(alpha: 0.5),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // IMAGEN DE REFERENCIA (Aquí puedes poner una captura de tu juego)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: AspectRatio(
+                  aspectRatio: 1837 / 2477,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.yellowAccent.withValues(alpha: 0.5),
+                      ),
+                      color: const Color(0xFF0B1320),
                     ),
-                    color: const Color(0xFF0B1320),
-                  ),
-                  child: Image.asset(
-                    'assets/images/info/info.png',
-                    fit: BoxFit.contain,
+                    child: Image.asset(
+                      'assets/images/info/info.png',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 32),
+              const SizedBox(height: 32),
 
-            // SECCIÓN: CÓMO JUGAR
-            _buildSectionTitle(Icons.sports_esports, l10n.gameMode),
-            const SizedBox(height: 16),
-            _buildInstructionStep("1", l10n.howToPlayText.split('\n')[0]),
-            _buildInstructionStep("2", l10n.howToPlayText.split('\n')[1]),
-            _buildInstructionStep("3", l10n.howToPlayText.split('\n')[2]),
-            _buildInstructionStep("4", l10n.howToPlayText.split('\n')[3]),
+              // SECCIÓN: CÓMO JUGAR
+              _buildSectionTitle(Icons.sports_esports, l10n.gameMode),
+              const SizedBox(height: 16),
+              _buildInstructionStep("1", l10n.howToPlayText.split('\n')[0]),
+              _buildInstructionStep("2", l10n.howToPlayText.split('\n')[1]),
+              _buildInstructionStep("3", l10n.howToPlayText.split('\n')[2]),
+              _buildInstructionStep("4", l10n.howToPlayText.split('\n')[3]),
 
-            const SizedBox(height: 32),
+              const SizedBox(height: 32),
 
-            // SECCIÓN: SOBRE COLOMBIA
-            _buildSectionTitle(Icons.map, "Colombia"),
-            const SizedBox(height: 12),
-            Text(
-              l10n.aboutColombia,
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 15,
-                height: 1.5,
+              // SECCIÓN: SOBRE COLOMBIA
+              _buildSectionTitle(Icons.map, "Colombia"),
+              const SizedBox(height: 12),
+              Text(
+                l10n.aboutColombia,
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 15,
+                  height: 1.5,
+                ),
               ),
-            ),
 
-            const SizedBox(height: 40),
+              const SizedBox(height: 40),
 
-            // BOTÓN DE CIERRE
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow[700],
-                  foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+              // BOTÓN DE CIERRE
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.yellow[700],
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(
+                    l10n.ok,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                onPressed: () => Navigator.pop(context),
-                child: Text(
-                  l10n.ok,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

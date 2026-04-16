@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ruta_32/l10n/app_localizations.dart';
 import 'package:ruta_32/screens/menu_screen.dart';
 import 'package:ruta_32/state/language_provider.dart';
 
-void main() {
-  // El ProviderScope es el que permite que Riverpod funcione
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  MobileAds.instance.initialize();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
