@@ -104,4 +104,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get aboutColombia =>
       'Ruta 32 is a tribute to the 32 departments of Colombia. Learn their location and size while you play.';
+
+  @override
+  String get extraLife => 'EXTRA LIFE (AD)';
 }

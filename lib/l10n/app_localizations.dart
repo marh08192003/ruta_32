@@ -271,6 +271,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ruta 32 es un tributo a los 32 departamentos de Colombia. Aprende su ubicación y tamaño mientras juegas.'**
   String get aboutColombia;
+
+  /// No description provided for @extraLife.
+  ///
+  /// In es, this message translates to:
+  /// **'VIDA EXTRA (AD)'**
+  String get extraLife;
 }
 
 class _AppLocalizationsDelegate

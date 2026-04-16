@@ -61,8 +61,8 @@ class GameOverDialog extends StatelessWidget {
                     backgroundColor: Colors.purple,
                   ),
                   onPressed: onExtraLife,
-                  label: const Text(
-                    "VIDA EXTRA (AD)",
+                  label: Text(
+                    l10n.extraLife,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
