@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.2.0+3
+version: 1.3.0+4
 
 environment:
   sdk: ^3.11.1
@@ -13,11 +13,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_gen: ^5.13.0+1
+  flutter_launcher_icons: ^0.14.4
   flutter_localization: ^0.3.3
   flutter_localizations:
     sdk: flutter
   flutter_map: ^8.2.2
   flutter_map_tile_caching: ^10.1.1
+  flutter_native_splash: ^2.4.7
   flutter_riverpod: ^3.3.1
   google_maps_flutter: ^2.16.0
   google_mobile_ads: ^8.0.0
@@ -39,3 +41,20 @@ flutter:
     - assets/images/selection/
     - assets/images/detail/
     - assets/images/info/
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon/icon_app.png"
+  adaptive_icon_background: "#263238"
+  adaptive_icon_foreground: "assets/images/icon/icon_foreground.png"
+
+flutter_native_splash:
+  color: "#122138"
+  image: assets/images/icon/icon_foreground.png
+  branding: assets/images/icon/branding_text.png
+  android_12:
+    image: assets/images/icon/icon_foreground.png
+    color: "#122138"
+    branding: assets/images/icon/branding_text.png
+  fullscreen: true
