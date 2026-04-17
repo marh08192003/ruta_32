@@ -107,4 +107,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get extraLife => 'EXTRA LIFE (AD)';
+
+  @override
+  String get noInternet => 'No internet connection';
 }

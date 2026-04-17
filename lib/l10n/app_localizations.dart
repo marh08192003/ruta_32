@@ -277,6 +277,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'VIDA EXTRA (AD)'**
   String get extraLife;
+
+  /// No description provided for @noInternet.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin conexión a internet'**
+  String get noInternet;
 }
 
 class _AppLocalizationsDelegate

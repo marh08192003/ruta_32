@@ -4,6 +4,7 @@ import 'package:ruta_32/l10n/app_localizations.dart';
 import 'package:ruta_32/screens/game_screen.dart';
 import 'package:ruta_32/screens/region/regions_screen.dart';
 import 'package:ruta_32/state/language_provider.dart';
+import 'package:ruta_32/utils/connectivity_plus/connectivity_plus.dart';
 import 'package:ruta_32/widgets/info_dialog.dart';
 import 'package:ruta_32/widgets/adaptive_banner.dart';
 
@@ -117,10 +118,7 @@ class MenuScreen extends ConsumerWidget {
                           icon: Icons.explore_outlined,
                           backgroundColor: Colors.redAccent,
                           foregroundColor: Colors.white,
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => RegionsScreen()),
-                          ),
+                          onPressed: () => _navigateToRegions(context, l10n),
                         ),
                       ],
                     ),
@@ -169,6 +167,34 @@ class MenuScreen extends ConsumerWidget {
         fullscreenDialog:
             true, // Esto hace que aparezca con una animación de "deslizar desde abajo"
         builder: (context) => const InfoDialog(),
+      ),
+    );
+  }
+}
+
+Future<void> _navigateToRegions(
+  BuildContext context,
+  AppLocalizations l10n,
+) async {
+  final connected = await hasInternetConnection();
+
+  if (!context.mounted) return;
+
+  if (connected) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => RegionsScreen()));
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(Icons.wifi_off, color: Colors.white),
+            SizedBox(width: 12),
+            Text(l10n.noInternet),
+          ],
+        ),
+        backgroundColor: Colors.redAccent,
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 3),
       ),
     );
   }
