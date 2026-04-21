@@ -283,6 +283,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Sin conexión a internet'**
   String get noInternet;
+
+  /// No description provided for @sourceCredit.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos proporcionados por:'**
+  String get sourceCredit;
 }
 
 class _AppLocalizationsDelegate

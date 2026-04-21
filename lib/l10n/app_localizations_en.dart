@@ -110,4 +110,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noInternet => 'No internet connection';
+
+  @override
+  String get sourceCredit => 'Data provided by:';
 }

@@ -56,5 +56,7 @@
 
   "extraLife": "VIDA EXTRA (AD)",
 
-  "noInternet": "Sin conexión a internet"
+  "noInternet": "Sin conexión a internet",
+
+  "sourceCredit": "Datos proporcionados por:"
 }

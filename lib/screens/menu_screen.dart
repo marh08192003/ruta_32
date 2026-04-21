@@ -7,6 +7,7 @@ import 'package:ruta_32/state/language_provider.dart';
 import 'package:ruta_32/utils/connectivity_plus/connectivity_plus.dart';
 import 'package:ruta_32/widgets/info_dialog.dart';
 import 'package:ruta_32/widgets/adaptive_banner.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuScreen extends ConsumerWidget {
   const MenuScreen({super.key});
@@ -151,6 +152,8 @@ class MenuScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 40),
+                  _buildSourceCredit(context, l10n),
                 ],
               ),
             ),
@@ -170,6 +173,50 @@ class MenuScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+Widget _buildSourceCredit(BuildContext context, AppLocalizations l10n) {
+  return GestureDetector(
+    onTap: () async {
+      final Uri url = Uri.parse('https://api-colombia.com');
+      if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+        throw Exception('No se pudo abrir la URL $url');
+      }
+    },
+    child: Column(
+      children: [
+        Text(
+          l10n.sourceCredit,
+          style: TextStyle(
+            color: Colors.white.withValues(alpha: 0.5),
+            fontSize: 11,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "API Colombia",
+              style: TextStyle(
+                color: Colors.blue[300],
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+            Text(
+              " - Miguel Teheran",
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.7),
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }
 
 Future<void> _navigateToRegions(

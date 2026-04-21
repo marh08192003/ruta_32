@@ -56,5 +56,7 @@
 
   "extraLife": "EXTRA LIFE (AD)",
 
-  "noInternet": "No internet connection"
+  "noInternet": "No internet connection",
+
+  "sourceCredit": "Data provided by:"
 }
