@@ -94,15 +94,39 @@ class _DepartmentDetailScreenState
     return SizedBox(
       width: double.infinity,
       height: 250,
-      child: Hero(
-        tag: 'dept_${currentDept.id}',
-        child: Image.asset(
-          currentDept.detailImage,
-          fit: BoxFit
-              .cover, // <--- CAMBIA ESTO: Recorta la imagen para llenar el 100% del espacio
-          width: double.infinity,
-          height: 250,
-        ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Hero(
+            tag: 'dept_${currentDept.id}',
+            child: Image.asset(currentDept.detailImage, fit: BoxFit.cover),
+          ),
+          // Bandera del departamento visible en la parte inferior derecha del encabezado,
+          // usando assetPath que es la imagen base del modelo
+          Positioned(
+            bottom: 16,
+            right: 16,
+            child: Container(
+              width: 75,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.white, width: 2),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.4),
+                    blurRadius: 6,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+                image: DecorationImage(
+                  image: AssetImage(currentDept.selectionImage),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
